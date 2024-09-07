@@ -26,3 +26,29 @@
 
  <p>첫째 줄에 N!을 출력한다.</p>
 
+> 반복(iteration)으로 푸는 방법
+```
+N = int(input())
+
+ans = 1
+
+for i in range(2,N+1):
+    ans *= i
+
+print(ans)
+```
+
+> 재귀함수(recursive)로 푸는 방법
+
+```
+def factorial (n):
+    if n == 0:
+        return 1
+    
+    else:
+        return n*factorial(n-1)
+    
+N = int(input())
+
+print(factorial(N))
+```
