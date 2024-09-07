@@ -39,3 +39,62 @@
 
 <p>N이 20 이하인 입력에 대해서는 두 번째 줄부터 수행 과정을 출력한다. 두 번째 줄부터 K개의 줄에 걸쳐 두 정수 A B를 빈칸을 사이에 두고 출력하는데, 이는 A번째 탑의 가장 위에 있는 원판을 B번째 탑의 가장 위로 옮긴다는 뜻이다. N이 20보다 큰 경우에는 과정은 출력할 필요가 없다.</p>
 
+>재귀적 방법 recursive
+```
+def hanoi(n, start, end, mid):
+    # 원판이 1개일 때 바로 옮김
+    if n == 1:
+        print(start, end)
+        return
+    # n-1개의 원판을 start -> mid로 옮김 (재귀 호출)
+    hanoi(n - 1, start, mid, end)
+    # 가장 큰 원판을 start -> end로 옮김
+    print(start, end)
+    # n-1개의 원판을 mid -> end로 옮김 (재귀 호출)
+    hanoi(n - 1, mid, end, start)
+
+# 입력 처리
+N = int(input())
+
+# 총 이동 횟수는 2^N - 1 (하노이의 탑 공식)
+total_moves = 2**N - 1
+print(total_moves)
+
+# N이 20 이하일 때만 과정을 출력
+if N <= 20:
+    hanoi(N, 1, 3, 2)  # 1번 장대에서 3번 장대로, 2번 장대를 보조로 사용
+
+```
+
+>반복적 방법 iteration
+```
+def hanoi_iterative(n):
+    # 이동 횟수는 2^N - 1
+    total_moves = 2**n - 1
+    print(total_moves)
+    
+    # 장대의 초기 설정
+    from collections import deque
+    
+    # 스택을 사용하여 상태를 저장
+    stack = deque()
+    
+    # 초기 상태를 스택에 추가 (n, start, end, mid)
+    stack.append((n, 1, 3, 2))
+    
+    # 반복문을 통해 상태를 처리
+    while stack:
+        num, start, end, mid = stack.pop()
+        
+        if num == 1:
+            print(start, end)
+        else:
+            # 문제를 세 부분으로 나눠서 스택에 추가
+            stack.append((num - 1, mid, end, start))  # n-1개를 중간 장대에서 목표 장대로
+            stack.append((1, start, end, mid))        # 가장 큰 원판을 시작 장대에서 목표 장대로
+            stack.append((num - 1, start, mid, end))  # n-1개를 시작 장대에서 중간 장대로
+
+# 입력 처리
+N = int(input().strip())
+hanoi_iterative(N)
+```
