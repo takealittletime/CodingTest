@@ -3,6 +3,9 @@
 #         find_recur(parent,parent[x])
 #     return parent[x]
 
+import sys
+input = sys.stdin.readline
+
 def find(parent, x):
     while parent[x] != x:
         # 경로 압축: 부모를 할당
