@@ -1,6 +1,7 @@
 # 시스템 입/출력에 sys.stdin/stdout 사용
 import sys
 input = sys.stdin.readline
+print = sys.stdout.write
 
 # 깊이 우선 탐색
 def dfs(V):
@@ -9,7 +10,7 @@ def dfs(V):
     global visited1
     
     # 노드 V 출력 후 방문 처리.
-    sys.stdout.write(str(V) +' ')
+    print(str(V) +' ')
     visited1[V] = 1
 
     # 노드 V와 인접한 미방문 노드에 대해 재귀적으로 과정 반복.
@@ -32,7 +33,7 @@ def bfs(V):
     while queue:
         # 방문한 노드를 큐에서 꺼내 제거.
         V = queue.pop(0)
-        sys.stdout.write(str(V) +' ')
+        print(str(V) +' ')
 
         # 노드 V와 인접한 미방문 노드를 큐에 삽입 후 방문 처리.
         for i in range(1, N+1):
@@ -56,5 +57,5 @@ visited2 = visited1.copy()
 
 # DFS, BFS 각각 실행 및 출력
 dfs(V)
-sys.stdout.write('\n')
+print('\n')
 bfs(V)
