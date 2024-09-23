@@ -1,44 +1,45 @@
-# 첫째 줄에 개수 N
+# import sys
+# input = sys.stdin.readline
+# print = sys.stdout.write
+
 N = int(input())
-# 둘째 줄에 수열 A
 A = list(map(int, input().split()))
-# 셋째 줄에 연산자 개수 (+,-,*,/)
 operators = list(map(int, input().split()))
 
-mx = -1e9 # 식의 최댓값
-mn = 1e9 # 식의 최솟값
+# resMax = resMin = 0
+resMax = -1e9
+resMin = 1e9
 
-def dfs(n, temp) :
-    # 전역변수로 mx, mn 선언
-    global mx, mn
-    
-    # 종료 조건
+def dfs(n, tmp):
+    global N
+    global resMax
+    global resMin
+
     if n == N-1:
-        mx = max(temp, mx)
-        mn = min(temp, mn)
+        resMax = max(tmp, resMax)
+        resMin = min(tmp, resMin)
         return
-     
-    # 하부함수 호출
-    if operators[0] != 0 : # 덧셈하는 경우
-        operators[0] -= 1
-        dfs(n+1, temp + A[n+1])
-        operators[0] += 1 
 
-    if operators[1] != 0 : # 뺄셈하는 경우
-        operators[1]-= 1
-        dfs(n+1, temp - A[n+1])
+    if operators[0] != 0:
+        operators[0] -= 1
+        dfs(n+1, tmp+A[n+1])
+        operators[0] += 1
+    
+    if operators[1] != 0:
+        operators[1] -= 1
+        dfs(n+1, tmp-A[n+1])
         operators[1] += 1
     
-    if operators[2] != 0 : # 곱셈하는 경우
+    if operators[2] != 0:
         operators[2] -= 1
-        dfs(n+1, temp * A[n+1])
+        dfs(n+1, tmp * A[n+1])
         operators[2] += 1
     
-    if operators[3] != 0 : #나눗셈하는 경우
+    if operators[3] != 0:
         operators[3] -= 1
-        dfs(n+1, int(temp/A[n+1]))
+        dfs(n+1, int(tmp/A[n+1]))
         operators[3] += 1
 
 dfs(0, A[0])
-print(mx)
-print(mn)
+print(resMax)
+print(resMin)
