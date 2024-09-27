@@ -1,11 +1,18 @@
 import sys
 input = sys.stdin.readline
 
+def tile(n):
+    if (n == 1):
+        return 1
+    if (n==2):
+        return 2
+    curr = 2
+    pre = 1
+    for i in range(3,n+1):
+        next = (curr+pre)%15746
+        pre = curr
+        curr = next
+    return curr
+
 n = int(input())
-# 입력의 최댓값 (1 ≤ N ≤ 1,000,000)
-dp = [0] * 1000001
-dp[1] = 1
-dp[2] = 2
-for k in range(3, n+1):
-    dp[k] = (dp[k-1]+dp[k-2]) % 15746
-print(dp[n])
+print(tile(n))
