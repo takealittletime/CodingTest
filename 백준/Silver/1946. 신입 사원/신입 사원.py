@@ -21,8 +21,10 @@ for _ in range(T):
     # 서류 제일 잘 본 지원자의 면접 순위
     best_interview = volunterrs[0][1]
 
+    # 그 밑에 면접 잘 본 지원자를 찾고, 그 밑에 또 반복하며 면접 잘 본 지원자를 반복해 탐색
     for i in range(1,N):
         if volunterrs[i][1] < best_interview:
             best_interview = volunterrs[i][1]
             count += 1
+    # 결과 출력
     print(count)
